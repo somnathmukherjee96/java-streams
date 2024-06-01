@@ -18,7 +18,7 @@ public class JavaStreamsApplication {
 		employees.add(new Employee("Debmalya", "Pan",5555.0, List.of("Project 2", "Project 3")));
 		employees.add(new Employee("Sourav", "Dey",6600.0, List.of("Project 2", "Project 4")));
 		employees.add(new Employee("Suvam", "Tewari",6700.0, List.of("Project 3", "Project 4")));
-		employees.add(new Employee("Debjit", "Chakraborty",8000.0, List.of("Project 4", "Project 3")));
+		employees.add(new Employee("Debjit", "Chakraborty",5000.0, List.of("Project 4", "Project 3")));
 
 	}
 	public static void main(String[] args) throws NoSuchFieldException {
@@ -113,6 +113,18 @@ public class JavaStreamsApplication {
 				.skip(1)
 				.findFirst();
         secondHighestSalaryEmployee.ifPresent(System.out::println);
+
+		//get the employees with 2nd highest salary
+		Map.Entry<Double, List<String>> secondHighestSalaryEmployees =employees.stream()
+				.sorted(Comparator.comparing(Employee::getSalary).reversed())
+				.collect(Collectors.groupingBy(Employee::getSalary,
+						Collectors.mapping(e -> e.getFirstName()+" "+e.getLastName(),Collectors.toList())))
+						.entrySet()
+								.stream()
+										.sorted(Collections.reverseOrder(Map.Entry.comparingByKey()))
+												.collect(Collectors.toList())
+														.get(3);
+		System.out.println("Employees with same salaries - "+secondHighestSalaryEmployees);
 	}
 
 }
