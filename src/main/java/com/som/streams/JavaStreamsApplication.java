@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -125,6 +126,48 @@ public class JavaStreamsApplication {
 												.collect(Collectors.toList())
 														.get(3);
 		System.out.println("Employees with same salaries - "+secondHighestSalaryEmployees);
+
+		//count the characters in a given string
+		String input = "ilovejavaverymuch";
+		Map<String, Long> countChars = Arrays.stream(input.split("")).collect(Collectors.groupingBy(c->c, Collectors.counting()));
+		System.out.println("Count characters -"+countChars);
+
+		//find all the duplicate characters from a given String
+		List<String> duplicateCharacters = Arrays.stream(input.split(""))
+				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+				.entrySet()
+				.stream()
+				.filter(entry -> entry.getValue()>1)
+				.map(Map.Entry::getKey)
+				.collect(Collectors.toList());
+		System.out.println("Duplicate Characters - "+duplicateCharacters);
+
+		//find first unique character from a given String
+		String firstUniqueChar = Arrays.stream(input.split(""))
+				.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+				.entrySet()
+				.stream()
+				.filter(entry -> entry.getValue()==1)
+				.findFirst().get().getKey();
+		System.out.println("First unique character - "+firstUniqueChar);
+
+		//find second-highest number from a given array
+		int[] nums = {5,9,11,2,8,21,1};
+		int secondHighestNumber = Arrays.stream(nums)
+				.boxed()
+				.sorted(Comparator.reverseOrder())
+				.skip(1)
+				.findFirst().get();
+
+		System.out.println("Second highest number is "+secondHighestNumber);
+
+		//find the longest string from an array
+		String[] strArray = {"java", "javascript","python", "springboot", "microservices"};
+
+		String s = Arrays.stream(strArray)
+				.reduce((word1, word2)->word1.length()>word2.length()?word1:word2)
+				.get();
+		System.out.println("Longest string is "+s);
 	}
 
 }
