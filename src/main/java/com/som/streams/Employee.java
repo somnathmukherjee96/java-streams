@@ -15,6 +15,7 @@ public class Employee {
     private String firstName;
     private String lastName;
     private Double salary;
+    private String dept;
     private List<String> projects;
 
     @Override
