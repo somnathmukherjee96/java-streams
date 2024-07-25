@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.Objects;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Employee {
 
     private String firstName;
@@ -29,5 +26,53 @@ public class Employee {
     @Override
     public int hashCode() {
         return Objects.hash(firstName, lastName);
+    }
+
+    public Employee(String firstName, String lastName, Double salary, String dept, List<String> projects) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.salary = salary;
+        this.dept = dept;
+        this.projects = projects;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    public String getDept() {
+        return dept;
+    }
+
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
+
+    public List<String> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<String> projects) {
+        this.projects = projects;
     }
 }
