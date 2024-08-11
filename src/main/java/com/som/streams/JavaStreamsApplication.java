@@ -254,5 +254,14 @@ public class JavaStreamsApplication {
                 .stream()
                 .filter(characterLongEntry -> characterLongEntry.getValue()>1)
                 .forEach(characterLongEntry -> System.out.println("Character : "+characterLongEntry.getKey()+", Count: "+characterLongEntry.getValue()));
+
+        String[] strArr1 = {"Apple", "Cucumber", "Watermelon"};
+        String[] strArr2 = {"Banana", "MuskMelon"};
+
+        String[] sortedStrArr = Stream.concat(Arrays.stream(strArr1), Arrays.stream(strArr2))
+                .sorted()
+//                .toArray(size -> new String[size])
+                .toArray(String[]::new);
+        System.out.println(Arrays.toString(sortedStrArr));
     }
 }
